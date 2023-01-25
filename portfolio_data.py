@@ -1,7 +1,6 @@
 import pandas as pd
 import db_initializer as di
 
-
 di.initialize_symbol_master()
 di.initialize_symbol_details()
 
