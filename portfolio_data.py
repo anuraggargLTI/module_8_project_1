@@ -2,7 +2,6 @@ import pandas as pd
 import db_initializer as di
 from fire import Fire
 
-
 di.initialize_symbol_master()
 di.initialize_symbol_details()
 
