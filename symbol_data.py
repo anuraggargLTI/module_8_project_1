@@ -26,7 +26,8 @@ def get_all_tickers():
     result_df=di.return_symbol_master_handler()
     return result_df['Symbol'].iloc[0:10]
 
-
+def get_ticker_price(symbol):
+    return symbol
 
 
 
