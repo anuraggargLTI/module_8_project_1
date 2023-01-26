@@ -1,6 +1,6 @@
 import pandas as pd
 import db_initializer as di
-from fire import Fire
+
 
 di.initialize_symbol_master()
 di.initialize_symbol_details()
@@ -21,8 +21,12 @@ def get_portfolio_historical_data(symbol_list):
         if(start_counter==0):
             symbol_details_df = symbol_details_df_temp
         else:
-            symbol_details_df_temp.drop(['index','Date'],axis=1)
+            #symbol_details_df_temp.drop(['index','Date'],axis=1)
             symbol_details_df = pd.concat([symbol_details_df,symbol_details_df_temp],axis=1)
         start_counter = start_counter+1
-    print(symbol_details_df.head())
+    return symbol_details_df
+
+def get_portfolio_historical_close_data(symbol_list):
+   
+    return get_portfolio_historical_data(symbol_list).copy().drop(columns=['High','Low','Open','Volume','Adj Close'])
 
