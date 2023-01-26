@@ -51,10 +51,10 @@ def portfolio_expected_return_calculator(stocks, weights):
     # Create an empty list which will hold the expected returns
     expected_returns = []
     # Gather the stock data from the symbol_data_calculator function
-    symbol_data = symbol_data_calculator(stocks)
+    stock_data = stock_data_calculator(stocks)
     # Pull only the expected returns from the data
-    for symbol in symbol_data:
-        expected_returns.append(symbol_data[symbol]['expected_return'])
+    for stock in stock_data:
+        expected_returns.append(stock_data[stock]['expected_return'])
     # Multiply the expected returns by the weights to get weighted expected returns
     weighted_expected_returns = expected_returns * weights
     # Sum all these to get the expected return of the portfolio
@@ -63,17 +63,17 @@ def portfolio_expected_return_calculator(stocks, weights):
 
 # This function accepts a list of stocks and a list of weights which must be in the 
 # same order. It returns the variance of the portfolio.
-def portfolio_variance_calculator(symbols, weights):
+def portfolio_variance_calculator(stocks, weights):
     # Getting the data. This part can be replaced by anurag's function
     df_dict = {}
-    for symbol in symbols:
-        symbol_df = pd.read_csv(
-            Path(f'./Resources/{symbol}.csv'),
+    for stock in stocks:
+        stock_df = pd.read_csv(
+            Path(f'./Resources/{stock}.csv'),
             index_col = 'Date',
             parse_dates = True,
             infer_datetime_format = True
             )
-        df_dict[symbol] = symbol_df['Close']
+        df_dict[stock] = stock_df['Close']
 
     prices_df = pd.concat(df_dict.values(), axis = 1, join = 'inner', keys = symbols_list)
     daily_returns = prices_df.pct_change().dropna()
@@ -112,15 +112,15 @@ def portfolio_variance_calculator(symbols, weights):
 def portfolio_performance_calculator(stocks, weights):
     # This section can be replaced by Anurag's function
     df_dict = {}
-    for symbol in stocks:
-        symbol_df = pd.read_csv(
-            Path(f'./Resources/{symbol}.csv'),
+    for stock in stocks:
+        stock_df = pd.read_csv(
+            Path(f'./Resources/{stock}.csv'),
             index_col = 'Date',
             parse_dates = True,
             infer_datetime_format = True
             )
-        symbol_df['daily_returns'] = symbol_df['Close'].pct_change().dropna()
-        df_dict[symbol] = symbol_df[['daily_returns']]
+        stock_df['daily_returns'] = stock_df['Close'].pct_change().dropna()
+        df_dict[stock] = stock_df[['daily_returns']]
 
     stocks_df = pd.concat(df_dict.values(), axis = 1, join = 'inner', keys = stocks)
 
