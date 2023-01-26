@@ -132,4 +132,12 @@ def portfolio_performance_calculator(stocks, weights):
     cumulative_returns = cumulative_returns.sum(axis=1)
     return cumulative_returns
 
-
+# This function accepts a list of stocks and a list of weights which must be in the 
+# same order. It will return the 95% confidence interval for annual performance
+# of the portfolio.
+def portfolio_95percent_confidence_calculator(stocks, weights):
+    expected_return = portfolio_expected_return_calculator(stocks, weights)
+    variance = portfolio_variance_calculator(stocks, weights)
+    lower_bound = expected_return - 2*variance
+    upper_bound = expected_return + 2*variance
+    return lower_bound, upper_bound
