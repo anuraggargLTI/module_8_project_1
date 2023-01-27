@@ -141,3 +141,48 @@ def portfolio_95percent_confidence_calculator(stocks, weights):
     lower_bound = expected_return - 2*variance
     upper_bound = expected_return + 2*variance
     return lower_bound, upper_bound
+
+# Takes a naive approach to finding the portfolio with the minimum risk.
+# There is a way to minimize a function with SciPy.optimize.minimize but 
+# I can't figure out how to do it. 
+# This function takes a list of stocks and creates 100 random portfolios
+# and returns the one with the minimum risk.
+def naive_minimum_risk_finder(stocks):
+    # Create an iterator
+    i = 0
+    # Create dictionary to store the minimum risk portfolio
+    min_risk = {}
+    # Generate 100 portfolios with random weightings.
+    # Save only the one with the minimim risk.
+    while i < 100:
+        weights = np.random.random(len(stocks))
+        weights /= weights.sum()
+        risk = portfolio_variance_calculator(stocks, weights)
+        if not min_risk:
+            min_risk['min_risk']={'risk':risk, 'weights':weights}
+        elif risk < min_risk['min_risk']['risk']:
+            min_risk['min_risk']={'risk':risk, 'weights':weights}
+        i += 1
+    return min_risk
+
+# Takes a naive approach to finding the portfolio with the minimum risk.
+# There is a way to minimize a function with SciPy.optimize.minimize but 
+# I can't figure out how to do it. 
+# This function takes a list of stocks and creates 100 random portfolios
+# and returns the one with the maximum return.
+def naive_maximum_return_finder(stocks):
+    i = 0
+    # Create dictionary to store the maximum return portfolio
+    max_return = {}
+    # Generate 100 portfolios with random weightings.
+    # Save only the one with the minimim risk.
+    while i < 100:
+        weights = np.random.random(len(stocks))
+        weights /= weights.sum()
+        returns = portfolio_expected_return_calculator(stocks, weights)
+        if not max_return:
+            max_return['max_return']={'return':returns, 'weights':weights}
+        elif returns > max_return['max_return']['return']:
+            max_return['max_return']={'return':returns, 'weights':weights}
+        i += 1
+    return max_return
