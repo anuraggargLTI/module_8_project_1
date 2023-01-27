@@ -75,7 +75,7 @@ def portfolio_variance_calculator(stocks, weights):
             )
         df_dict[stock] = stock_df['Close']
 
-    prices_df = pd.concat(df_dict.values(), axis = 1, join = 'inner', keys = symbols_list)
+    prices_df = pd.concat(df_dict.values(), axis = 1, join = 'inner', keys = stocks)
     daily_returns = prices_df.pct_change().dropna()
     
     # Get the covariance array of the portfolio using the .cov() method.
