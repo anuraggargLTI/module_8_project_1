@@ -1,6 +1,8 @@
 import pandas as pd
 from pathlib import Path
 import numpy as np
+import symbol_data
+import portfolio_data
 
 
 spx_df = pd.read_csv(Path('./Resources/SPX.csv'), 
@@ -14,17 +16,14 @@ spx_daily_returns = spx_df['Close'].pct_change().dropna()
 # The function accepts a list of stocks and returns a dictionary which contains
 # the annual expected return, beta, standard deviation, and variance of each stock
 def stock_data_calculator(stocks):
+    # Generate a dataframe of daily returns for S&P 500
+    spx_daily_returns = symbol_data.get_historical_data('SPX')
+    spx_daily_returns = spx_df['Close'].pct_change().dropna()
     # Create an empty dictionary to store the stock data
     stock_data_dict = {}
     # This section can be replaced by Anurag's function
     for stock in stocks:
-        stock_df = pd.read_csv(
-            Path(f'./Resources/{stock}.csv'), 
-            index_col = 'Date', 
-            parse_dates = True, 
-            infer_datetime_format=True
-            )
-        
+        stock_df = symbol_data.get_historical_data(stock)
         daily_returns = stock_df['Close'].pct_change().dropna()
         daily_returns_df = pd.concat(
             [daily_returns, spx_daily_returns], 
@@ -64,19 +63,10 @@ def portfolio_expected_return_calculator(stocks, weights):
 # This function accepts a list of stocks and a list of weights which must be in the 
 # same order. It returns the variance of the portfolio.
 def portfolio_variance_calculator(stocks, weights):
-    # Getting the data. This part can be replaced by anurag's function
-    df_dict = {}
-    for stock in stocks:
-        stock_df = pd.read_csv(
-            Path(f'./Resources/{stock}.csv'),
-            index_col = 'Date',
-            parse_dates = True,
-            infer_datetime_format = True
-            )
-        df_dict[stock] = stock_df['Close']
-
-    prices_df = pd.concat(df_dict.values(), axis = 1, join = 'inner', keys = stocks)
-    daily_returns = prices_df.pct_change().dropna()
+    # Retrieve a dataframe of close prices for all stocks entered
+    stock_df = portfolio_data.get_portfolio_historical_close_data(stocks)
+    # Get the daily returns of each stock
+    daily_returns = stock_df.pct_change().dropna()
     
     # Get the covariance array of the portfolio using the .cov() method.
     portfolio_cov = np.array(daily_returns.cov())
@@ -110,22 +100,12 @@ def portfolio_variance_calculator(stocks, weights):
 # same order. It will return a dataframe which contains the cumulative returns
 # of the entire portfolio. This can be used to plot the performance of the portfolio.
 def portfolio_performance_calculator(stocks, weights):
-    # This section can be replaced by Anurag's function
-    df_dict = {}
-    for stock in stocks:
-        stock_df = pd.read_csv(
-            Path(f'./Resources/{stock}.csv'),
-            index_col = 'Date',
-            parse_dates = True,
-            infer_datetime_format = True
-            )
-        stock_df['daily_returns'] = stock_df['Close'].pct_change().dropna()
-        df_dict[stock] = stock_df[['daily_returns']]
-
-    stocks_df = pd.concat(df_dict.values(), axis = 1, join = 'inner', keys = stocks)
-
+    # Retrieve the closing price data for the stocks entered.
+    stocks_df = portfolio_data.get_portfolio_historical_close_data(stocks)
+    # Calculate the daily returns for each stock.
+    daily_returns = stocks_df.pct_change().dropna()
     # Calculate cumulative returns for each stock in the portfolio.
-    cumulative_returns = (1+stocks_df).cumprod() - 1
+    cumulative_returns = (1+daily_returns).cumprod() - 1
     # Multiply each stock by its respective weight.
     cumulative_returns = cumulative_returns * weights
     # Sum all the weighted cumulative returns
