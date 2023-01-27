@@ -1,5 +1,4 @@
 import pandas as pd
-from pathlib import Path
 import numpy as np
 import symbol_data
 import portfolio_data
