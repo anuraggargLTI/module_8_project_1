@@ -19,11 +19,13 @@ def get_historical_data(symbol):
     get_historical_data_query = f"""
         SELECT * from SYMBOL_DETAILS_{symbol}
     """
-    return pd.read_sql_query(get_historical_data_query,con=engine)
+    stock_df =  pd.read_sql_query(get_historical_data_query,con=engine, index_col='Date')
+    stock_df.index = pd.to_datetime(stock_df.index, infer_datetime_format=True)
+    return stock_df
 
 def get_all_tickers():
     result_df=di.return_symbol_master_handler()
-    return result_df['Symbol'].iloc[0:10]
+    return result_df['Symbol']
 
 def get_ticker_price(symbol):
     return symbol
