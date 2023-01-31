@@ -19,7 +19,12 @@ def get_historical_data(symbol):
     get_historical_data_query = f"""
         SELECT * from SYMBOL_DETAILS_{symbol}
     """
-    stock_df =  pd.read_sql_query(get_historical_data_query,con=engine, index_col='Date')
+    
+    stock_df =  pd.read_sql_query(get_historical_data_query,con=engine)
+    if 'date' in stock_df.columns:
+        stock_df.index = stock_df['date']
+    if 'Date' in stock_df.columns:
+        stock_df.index = stock_df['Date']
     stock_df.index = pd.to_datetime(stock_df.index, infer_datetime_format=True)
     return stock_df
 
@@ -30,5 +35,19 @@ def get_all_tickers():
 def get_ticker_price(symbol):
     return symbol
 
-
+def search_by_symbol_list(symbol_list):
+    di.initialize_symbol_master()
+    di.initialize_symbol_details()
+    engine = di.return_engine_handler()
+    symbol_list_df = pd.DataFrame()
+    for symbol in symbol_list:
+        search_by_symbol_query = f"""
+             SELECT * from SYMBOL_MASTER
+             WHERE symbol like '%{symbol}%'
+        """
+        symbol_df = pd.read_sql_query(search_by_symbol_query,con=engine).drop(columns='index')
+        symbol_list_df = symbol_list_df.append(symbol_df)
+    symbol__list_df = symbol_df.drop(columns =["Avg Vol","Change"])
+    symbol__list_df.columns = ["Symbol","Name","Price","%Change","Volume","Market Cap","PE Ratio"]
+    return symbol_list_df
 

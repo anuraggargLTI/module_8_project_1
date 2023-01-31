@@ -28,7 +28,11 @@ def insert_into_symbol_details():
     for file in filename_list:
         if(file!='Technology Sector List.csv' and file!='MutualFunds.csv' and file!='ETFs.csv' and file!='.gitkeep'):
             symbol_details_df = pd.read_csv(Path(f"./Resources/{file}"))
-            symbol = file.split(".csv")[0]
+            if '_data' in file:
+                
+                symbol = file.split("_data.csv")[0]
+            else:
+                symbol = file.split(".csv")[0]
             symbol_details_df.to_sql(f"SYMBOL_DETAILS_{symbol}",engine,index=False,if_exists="replace")
 
 def  return_engine_handler():

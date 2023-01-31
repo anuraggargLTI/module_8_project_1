@@ -16,7 +16,10 @@ def stock_data_calculator(stocks):
     # This section can be replaced by Anurag's function
     for stock in stocks:
         stock_df = symbol_data.get_historical_data(stock)
-        daily_returns = stock_df['Close'].pct_change().dropna()
+        if 'close' in stock_df.columns:
+            daily_returns = stock_df['close'].pct_change().dropna()
+        if 'Close' in stock_df.columns:
+            daily_returns = stock_df['Close'].pct_change().dropna()
         daily_returns_df = pd.concat(
             [daily_returns, spx_daily_returns], 
             axis=1,
