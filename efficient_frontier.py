@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import symbol_data
 import portfolio_data
+import matplotlib.pyplot as plt
 
 # This function may have to be rewritten to accomodate Anurag's data functions
 # as it performs all the analysis within the same loop as retrieving the data.
