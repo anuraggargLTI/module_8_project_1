@@ -48,7 +48,7 @@ def get_portfolio_historical_close_data(symbol_list):
             df_dict[symbol_name] = df_dict[symbol_name][['Close']]
         start_counter += 1
     symbol_details_df = pd.concat(df_dict.values(), axis=1, join = 'inner', keys=symbol_list)
-    print(symbol_details_df)
+    return symbol_details_df
 
 
 def get_prebuilt_portfolio_historical_close_data(portfolios_nested_list): 
