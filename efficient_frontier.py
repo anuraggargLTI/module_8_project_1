@@ -165,7 +165,9 @@ def naive_maximum_return_finder(stocks):
 
 # This function takes a list of stock symbols and outputs a dictionary 
 # with the returns, risk, and weightings for 1000 randomly generated
-# portfolios with the given stocks. 
+# portfolios with the given stocks. Save the result of this function to 
+# a variable. It can be used as the input for several other functions
+# to save computing time.
 def efficient_frontier_generator(stocks):
     # Create the empty dict
     portfolio_dict = {}
