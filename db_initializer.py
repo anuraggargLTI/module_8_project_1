@@ -37,4 +37,3 @@ def  return_engine_handler():
 def return_symbol_master_handler():
     symbol_master_df = pd.read_csv(Path("./Resources/Technology Sector List.csv"))
     return symbol_master_df
-
