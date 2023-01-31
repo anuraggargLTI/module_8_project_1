@@ -19,7 +19,12 @@ def get_historical_data(symbol):
     get_historical_data_query = f"""
         SELECT * from SYMBOL_DETAILS_{symbol}
     """
-    stock_df =  pd.read_sql_query(get_historical_data_query,con=engine, index_col='Date')
+    
+    stock_df =  pd.read_sql_query(get_historical_data_query,con=engine)
+    if 'date' in stock_df.columns:
+        stock_df.index = stock_df['date']
+    if 'Date' in stock_df.columns:
+        stock_df.index = stock_df['Date']
     stock_df.index = pd.to_datetime(stock_df.index, infer_datetime_format=True)
     return stock_df
 
