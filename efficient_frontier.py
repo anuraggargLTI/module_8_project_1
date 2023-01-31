@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import symbol_data
 import portfolio_data
+import matplotlib.pyplot as plt
 
 # This function may have to be rewritten to accomodate Anurag's data functions
 # as it performs all the analysis within the same loop as retrieving the data.
@@ -161,3 +162,60 @@ def naive_maximum_return_finder(stocks):
             max_return['max_return']={'return':returns, 'weights':weights}
         i += 1
     return max_return
+
+# This function takes a list of stock symbols and outputs a dictionary 
+# with the returns, risk, and weightings for 1000 randomly generated
+# portfolios with the given stocks. 
+def efficient_frontier_generator(stocks):
+    # Create the empty dict
+    portfolio_dict = {}
+    i = 0
+    ratio = 0
+    while len(portfolio_dict) < 1000:
+        # Generate random weights for the portfolio
+        weights = np.random.random(len(stocks))
+        weights /= weights.sum()
+        # Find the expected return and risk of the portfolio
+        returns = portfolio_expected_return_calculator(stocks, weights)
+        risk = portfolio_variance_calculator(stocks, weights)
+        # Optimize so the loop will constantly find better portfolios
+        portfolio_ratio = returns/risk
+        if portfolio_ratio > ratio:
+            portfolio_dict[i] = {'returns': returns, 'risk': risk, 'weights': weights}
+        else:
+            pass
+        ratio = portfolio_ratio
+        i += 1
+    return portfolio_dict
+
+# This function takes the dictionary returned by efficient_frontier_generator
+# and plots the result as a scatter plot. 
+def efficient_frontier_plot(efficient_frontier_dict):
+    # Create empty lists for x and y values
+    x=[]
+    y=[]
+    # Fill the x and y values with the risk and return
+    # of each portfolio in the dictionary.
+    for k, v in efficient_frontier_dict.items():
+        x.append(v['risk'])
+        y.append(v['returns'])
+    # Plot the result as a scatter plot.
+    plt.scatter(x=x, y=y,)
+    plt.title('Returns vs. Risk for 1000 randomly weighted portfolios')
+    plt.xlabel('Risk')
+    plt.ylabel('Returns')
+    plt.show()
+
+# This function takes the dictionary returned by efficient_frontier_generator
+# and returns the information about the portfolio with the highest Sharpe ratio 
+def optimal_portfolio_finder(efficient_frontier_dict):
+    # Reformat the data into a DataFrame
+    df = pd.DataFrame(efficient_frontier_dict).transpose()
+    # Find the sharpe ratios of each portfolio by subtracting the 
+    # risk-free rate (in this case 3%) from the returns of the portfolio
+    # and dividing the result by the risk of the portfolio.
+    sharpe_ratios = (df['returns']-.03)/df['risk']
+    # Find the portfolio with the highest Sharpe ratio.
+    max_ratio = sharpe_ratios.loc[sharpe_ratios.isin(np.array(sharpe_ratios.max()))]
+    max_ratio_info = efficient_frontier_dict[int(max_ratio.index[0])]
+    return max_ratio_info
