@@ -1,5 +1,6 @@
 import pandas as pd
 import db_initializer as di
+from fire import Fire
 
 di.initialize_symbol_master()
 di.initialize_symbol_details()
@@ -22,7 +23,7 @@ def get_portfolio_historical_data(symbol_list):
         df_dict[symbol_name].index = pd.to_datetime(df_dict[symbol_name].index, infer_datetime_format = True)
         start_counter += 1
     symbol_details_df = pd.concat(df_dict.values(), axis=1, join = 'inner', keys=symbol_list)
-    return symbol_details_df
+    print(symbol_details_df)
 
 def get_portfolio_historical_close_data(symbol_list):
    
