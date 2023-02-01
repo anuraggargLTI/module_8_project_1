@@ -1,4 +1,4 @@
-date,open,high,low,close,volume,Name
+date,open,high,low,close,volume,name
 2014-03-27,568.0,568.0,552.92,558.46,13052,GOOG
 2014-03-28,561.2,566.43,558.67,559.99,41003,GOOG
 2014-03-31,566.89,567.0,556.93,556.97,10772,GOOG

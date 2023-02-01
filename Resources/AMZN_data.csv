@@ -1,4 +1,4 @@
-date,open,high,low,close,volume,Name
+date,open,high,low,close,volume,name
 2013-02-08,261.4,265.25,260.555,261.95,3879078,AMZN
 2013-02-11,263.2,263.25,256.6,257.21,3403403,AMZN
 2013-02-12,259.19,260.16,257.0,258.7,2938660,AMZN
