@@ -3,7 +3,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
-from utils import Header, make_dash_table
+from modules.utils import Header, make_dash_table
 import pandas as pd
 from pathlib import Path
 import symbol_data as sd
