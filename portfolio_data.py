@@ -2,8 +2,7 @@ import pandas as pd
 import db_initializer as di
 
 
-di.initialize_symbol_master()
-di.initialize_symbol_details()
+symbol_list_df = pd.DataFrame()
 
 def get_portfolio_historical_data(symbol_list):
     engine = di.return_engine_handler()
@@ -78,3 +77,17 @@ def get_all_tickers():
 
 def get_ticker_price(symbol):
     return symbol
+def search_by_symbol_list(symbol_list):
+    di.initialize_symbol_master()
+    engine = di.return_engine_handler()
+    search_by_symbol_query = f"""
+             SELECT * from SYMBOL_MASTER
+             WHERE symbol IN ({symbol_list})
+        """
+    symbol_list_df = pd.read_sql_query(search_by_symbol_query,con=engine).drop(columns='index')
+    symbol__list_df = symbol_list_df.drop(columns =["Avg Vol","Change"])
+    symbol__list_df.columns = ["Symbol","Name","Price","%Change","Volume","Market Cap","PE Ratio"]
+    return symbol_list_df
+
+def return_symbol_list_data():
+    return symbol_list_df
