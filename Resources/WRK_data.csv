@@ -1,4 +1,4 @@
-date,open,high,low,close,volume,Name
+date,open,high,low,close,volume,name
 2015-06-24,63.45,63.45,63.38,63.38,3300,WRK
 2015-06-25,62.9,62.9,61.9,61.9,3700,WRK
 2015-06-26,,,,61.9,100,WRK
