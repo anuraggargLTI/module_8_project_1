@@ -6,7 +6,6 @@ import plotly.graph_objs as go
 from modules.utils import Header, make_dash_table
 import pandas as pd
 from pathlib import Path
-import symbol_data as sd
 
 
 df_tech = pd.read_csv(Path("Resources/Test.csv"))
@@ -162,15 +161,15 @@ app.layout = html.Div([
                                         figure={
                                             "data": [
                                                 go.Scatter(
-                                                    x=sd.get_historical_data("INFY").index,
-                                                    y=sd.get_historical_data("INFY")["Close"],
+                                                    x=pfd.get_historical_data("INFY").index,
+                                                    y=pfd.get_historical_data("INFY")["Close"],
                                                     line={"color": " #0849A3"},
                                                     mode="lines",
                                                     name="INFY",
                                                 ),
                                                 go.Scatter(
-                                                    x=sd.get_historical_data("ORCL").index,
-                                                    y=sd.get_historical_data("ORCL")["close"],
+                                                    x=pfd.get_historical_data("ORCL").index,
+                                                    y=pfd.get_historical_data("ORCL")["close"],
                                                     line={"color": " #0849D9"},
                                                     mode="lines",
                                                     name="ORCL",
