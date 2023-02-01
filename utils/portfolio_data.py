@@ -1,5 +1,5 @@
 import pandas as pd
-import db_initializer as di
+import utils.db_initializer as di
 
 
 di.initialize_symbol_master()

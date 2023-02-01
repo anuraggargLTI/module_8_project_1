@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
-import symbol_data
-import portfolio_data
+import utils.portfolio_data as portfolio_data
 import matplotlib.pyplot as plt
 
 # This function may have to be rewritten to accomodate Anurag's data functions
@@ -10,13 +9,13 @@ import matplotlib.pyplot as plt
 # the annual expected return, beta, standard deviation, and variance of each stock
 def stock_data_calculator(stocks):
     # Generate a dataframe of daily returns for S&P 500
-    spx_daily_returns = symbol_data.get_historical_data('SPX')
+    spx_daily_returns = portfolio_data.get_historical_data('SPX')
     spx_daily_returns = spx_daily_returns['Close'].pct_change().dropna()
     # Create an empty dictionary to store the stock data
     stock_data_dict = {}
     # This section can be replaced by Anurag's function
     for stock in stocks:
-        stock_df = symbol_data.get_historical_data(stock)
+        stock_df = portfolio_data.get_historical_data(stock)
         if 'close' in stock_df.columns:
             daily_returns = stock_df['close'].pct_change().dropna()
         if 'Close' in stock_df.columns:
