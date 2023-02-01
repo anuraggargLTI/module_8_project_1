@@ -1,6 +1,8 @@
 import pandas as pd
 import db_initializer as di
 
+di.insert_into_symbol_details()
+
 
 symbol_list_df = pd.DataFrame()
 

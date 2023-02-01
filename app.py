@@ -8,11 +8,12 @@ import pandas as pd
 from pathlib import Path
 import portfolio_data as pfd
 import efficient_frontier as ef
+import numpy as np
 
 stocks = ['AAPL', 'MSFT']
 weights = weights = np.array([1]*len(stocks))/len(stocks)
 df_tech = pd.read_csv(Path("Resources/AAPL_data.csv"))
-df_a_data = ef.portfolio_performance_compare_calculator
+df_a_data = ef.portfolio_performance_compare_calculator(stocks,weights)
 
 app = dash.Dash(__name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}])
 
@@ -77,7 +78,7 @@ app.layout = html.Div([
                                         id="graph-1",
                                         figure={
                                             "data": [
-                                                go.Bar(
+                                                go.Scatter(
                                                     x=df_a_data.index,
                                                     y=df_a_data["portfolio"],
                                                     marker={
@@ -89,7 +90,7 @@ app.layout = html.Div([
                                                     },
                                                     name="Portfolio Value",
                                                 ),
-                                                go.Bar(
+                                                go.Scatter(
                                                     x=df_a_data.index,
                                                     y=df_a_data["spx"],
                                                     marker={
