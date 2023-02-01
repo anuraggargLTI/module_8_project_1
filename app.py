@@ -3,13 +3,13 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
-from modules.utils import Header, make_dash_table
+from utils import Header, make_dash_table
 import pandas as pd
 from pathlib import Path
-import modules.portfolio_data as pfd
+import portfolio_data as pfd
 
 
-df_tech = pd.read_csv(Path("Resources/Test.csv"))
+df_tech = pd.read_csv(Path("Resources/AAPL_data.csv"))
 df_a_data = pd.DataFrame(pd.read_csv(Path("Resources/INFY_data.csv")))
 
 app = dash.Dash(__name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}])
