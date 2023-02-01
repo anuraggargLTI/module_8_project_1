@@ -76,8 +76,8 @@ app.layout = html.Div([
                                         figure={
                                             "data": [
                                                 go.Bar(
-                                                    x=df_a_data["Date"],
-                                                    y=df_a_data["Close"],
+                                                    x=df_a_data.index,
+                                                    y=df_a_data["close"],
                                                     marker={
                                                         "color": "#0849A3",
                                                         "line": {
@@ -88,8 +88,8 @@ app.layout = html.Div([
                                                     name="Portfolio Value",
                                                 ),
                                                 go.Bar(
-                                                    x=df_a_data["Date"],
-                                                    y=df_a_data["Close"],
+                                                    x=df_a_data.index,
+                                                    y=df_a_data["close"],
                                                     marker={
                                                         "color": "#dddddd",
                                                         "line": {
@@ -163,7 +163,7 @@ app.layout = html.Div([
                                             "data": [
                                                 go.Scatter(
                                                     x=pfd.get_historical_data("INFY").index,
-                                                    y=pfd.get_historical_data("INFY")["Close"],
+                                                    y=pfd.get_historical_data("INFY")["close"],
                                                     line={"color": " #0849A3"},
                                                     mode="lines",
                                                     name="INFY",
