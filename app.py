@@ -3,14 +3,17 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
-from modules.utils import Header, make_dash_table
+from utils import Header, make_dash_table
 import pandas as pd
 from pathlib import Path
-import modules.portfolio_data as pfd
+import portfolio_data as pfd
+import efficient_frontier as ef
+import numpy as np
 
-
-df_tech = pd.read_csv(Path("Resources/Test.csv"))
-df_a_data = pd.DataFrame(pd.read_csv(Path("Resources/INFY_data.csv")))
+stocks = ['AAPL', 'MSFT']
+weights = weights = np.array([1]*len(stocks))/len(stocks)
+df_tech = pd.read_csv(Path("Resources/AAPL_data.csv"))
+df_a_data = ef.portfolio_performance_compare_calculator(stocks,weights)
 
 app = dash.Dash(__name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}])
 
@@ -75,9 +78,9 @@ app.layout = html.Div([
                                         id="graph-1",
                                         figure={
                                             "data": [
-                                                go.Bar(
-                                                    x=df_a_data["Date"],
-                                                    y=df_a_data["Close"],
+                                                go.Scatter(
+                                                    x=df_a_data.index,
+                                                    y=df_a_data["portfolio"],
                                                     marker={
                                                         "color": "#0849A3",
                                                         "line": {
@@ -87,9 +90,9 @@ app.layout = html.Div([
                                                     },
                                                     name="Portfolio Value",
                                                 ),
-                                                go.Bar(
-                                                    x=df_a_data["Date"],
-                                                    y=df_a_data["Close"],
+                                                go.Scatter(
+                                                    x=df_a_data.index,
+                                                    y=df_a_data["spx"],
                                                     marker={
                                                         "color": "#dddddd",
                                                         "line": {
@@ -163,7 +166,7 @@ app.layout = html.Div([
                                             "data": [
                                                 go.Scatter(
                                                     x=pfd.get_historical_data("INFY").index,
-                                                    y=pfd.get_historical_data("INFY")["Close"],
+                                                    y=pfd.get_historical_data("INFY")["close"],
                                                     line={"color": " #0849A3"},
                                                     mode="lines",
                                                     name="INFY",
