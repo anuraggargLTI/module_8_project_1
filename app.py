@@ -6,6 +6,7 @@ import plotly.graph_objs as go
 from modules.utils import Header, make_dash_table
 import pandas as pd
 from pathlib import Path
+import modules.portfolio_data as pfd
 
 
 df_tech = pd.read_csv(Path("Resources/Test.csv"))
