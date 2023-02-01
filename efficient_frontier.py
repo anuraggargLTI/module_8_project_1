@@ -241,3 +241,18 @@ def optimal_portfolio_finder(efficient_frontier_dict):
     max_ratio = sharpe_ratios.loc[sharpe_ratios.isin(np.array(sharpe_ratios.max()))]
     max_ratio_info = efficient_frontier_dict[int(max_ratio.index[0])]
     return max_ratio_info
+
+def warner_performance_calculator():
+    # Retrieve the closing price data for the stocks entered.
+    weights = [0.24, 0.23, 0.22, 0.22, 0.09]
+    warner_portfolio = pd.read_csv('./warner_prices_df.csv', header=[0,1,2],parse_dates=True, index_col=(0), infer_datetime_format=True)
+    warner_portfolio_close = warner_portfolio.loc[:,(slice(None),'close', slice(None))]
+    # Calculate the daily returns for each stock.
+    daily_returns = warner_portfolio_close.pct_change().dropna()
+    # Calculate cumulative returns for each stock in the portfolio.
+    cumulative_returns = (1+daily_returns).cumprod() - 1
+    # Multiply each stock by its respective weight.
+    cumulative_returns = cumulative_returns * weights
+    # Sum all the weighted cumulative returns
+    cumulative_returns = cumulative_returns.sum(axis=1)
+    return cumulative_returns
