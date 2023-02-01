@@ -12,7 +12,7 @@ import db_initializer as di
 def stock_data_calculator(stocks):
     # Generate a dataframe of daily returns for S&P 500
     spx_daily_returns = portfolio_data.get_historical_data('SPX')
-    spx_daily_returns = spx_daily_returns['Close'].pct_change().dropna()
+    spx_daily_returns = spx_daily_returns['close'].pct_change().dropna()
     # Create an empty dictionary to store the stock data
     stock_data_dict = {}
     # This section can be replaced by Anurag's function
