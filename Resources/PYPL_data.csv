@@ -1,4 +1,4 @@
-date,open,high,low,close,volume,Name
+date,open,high,low,close,volume,name
 2015-07-06,38.0,39.75,36.0,36.71,5866647,PYPL
 2015-07-07,37.72,37.81,36.0,36.62,7358964,PYPL
 2015-07-08,36.34,36.36,34.53,34.7,5387749,PYPL
