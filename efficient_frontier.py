@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import modules.portfolio_data as portfolio_data
+import portfolio_data
 import matplotlib.pyplot as plt
 
 # This function may have to be rewritten to accomodate Anurag's data functions
