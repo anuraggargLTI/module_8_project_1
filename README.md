@@ -14,13 +14,7 @@
 ### With an investment of $116,000,000.00 there is a 95% chance that over the next 10 years the Warner sample portfolio (warner_tickers= ['SPY', 'AKREX', 'TROW', 'COHOX', 'VTI']) will end with a range between $100,001,587.36 and $429,029,712.85
 
 ### With an investment of $94,500,000.00 there is a 95% chance that over the next 10 years the Gianforte sample portfolio (gianforte_tickers=['QQQ', 'SPY', 'VTI', 'FICO', 'WK', 'CRM']) will end with a range between $196,935,882.15 and $1,037,571,694.74
-=======
-###With an investment of $116,000,000.00 there is a 95% chance that over the next 10 years the Warner sample portfolio (warner_tickers= ['SPY', 'AKREX', 'TROW', 'COHOX', 'VTI']) will end with a range between $100,001,587.36 and $429,029,712.85
 
-###With an investment of $94,500,000.00 there is a 95% chance that over the next 10 years the Gianforte sample portfolio (gianforte_tickers=['QQQ', 'SPY', 'VTI', 'FICO', 'WK', 'CRM']) will end with a range between $196,935,882.15 and $1,037,571,694.74
-
-###With an investment of $64,000,000.00 there is a 95% chance that over the next 10 years the Pelosi sample portfolio (pelosi_tickers=['AAPL', 'V', 'DIS', 'CRM', 'META', 'CMCSA']) will end with a range between $361,820,204.05 and $487,164,4514.04
->>>>>>> 10a7cfac701c2a3ca89654f838013e383cbb9517
 
 ### With an investment of $64,000,000.00 there is a 95% chance that over the next 10 years the Pelosi sample portfolio (pelosi_tickers=['AAPL', 'V', 'DIS', 'CRM', 'META', 'CMCSA']) will end with a range between $361,820,204.05 and $487,164,4514.04
 
