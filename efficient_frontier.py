@@ -107,6 +107,25 @@ def portfolio_performance_calculator(stocks, weights):
     cumulative_returns = cumulative_returns.sum(axis=1)
     return cumulative_returns
 
+def portfolio_performance_compare_calculator(stocks, weights):
+    # Retrieve the closing price data for the stocks entered.
+    stocks_df = portfolio_data.get_portfolio_historical_close_data(stocks)
+    spx_df = portfolio_data.get_portfolio_historical_close_data(['SPX'])
+    combined_df = pd.concat([stocks_df, spx_df], join = 'inner', axis = 1, keys = ['portfolio','spx'])
+    # Calculate the daily returns for each stock.
+    daily_returns = combined_df.pct_change().dropna()
+    # Calculate cumulative returns for each stock in the portfolio.
+    cumulative_returns = (1+daily_returns).cumprod() - 1
+    # Multiply each stock by its respective weight.
+    cumulative_returns_portfolio = cumulative_returns.loc[:,('portfolio', slice(None), slice(None))] * weights
+    # Sum all the weighted cumulative returns
+    cumulative_returns_portfolio = cumulative_returns_portfolio.loc[:,('portfolio', slice(None), slice(None))].sum(axis=1)
+    cumulative_returns_portfolio = pd.DataFrame(cumulative_returns_portfolio, columns=['portfolio'])
+    cumulative_returns_spx = cumulative_returns.loc[:,('spx', slice(None), slice(None))]
+    cumulative_returns_spx.columns = ['spx']
+    cumulative_returns = pd.concat([cumulative_returns_portfolio, cumulative_returns_spx], axis = 1)
+    return cumulative_returns
+
 # This function accepts a list of stocks and a list of weights which must be in the 
 # same order. It will return the 95% confidence interval for annual performance
 # of the portfolio.

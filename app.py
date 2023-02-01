@@ -7,10 +7,12 @@ from utils import Header, make_dash_table
 import pandas as pd
 from pathlib import Path
 import portfolio_data as pfd
+import efficient_frontier as ef
 
-
+stocks = ['AAPL', 'MSFT']
+weights = weights = np.array([1]*len(stocks))/len(stocks)
 df_tech = pd.read_csv(Path("Resources/AAPL_data.csv"))
-df_a_data = pd.DataFrame(pd.read_csv(Path("Resources/INFY_data.csv")))
+df_a_data = ef.portfolio_performance_compare_calculator
 
 app = dash.Dash(__name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}])
 
@@ -77,7 +79,7 @@ app.layout = html.Div([
                                             "data": [
                                                 go.Bar(
                                                     x=df_a_data.index,
-                                                    y=df_a_data["close"],
+                                                    y=df_a_data["portfolio"],
                                                     marker={
                                                         "color": "#0849A3",
                                                         "line": {
@@ -89,7 +91,7 @@ app.layout = html.Div([
                                                 ),
                                                 go.Bar(
                                                     x=df_a_data.index,
-                                                    y=df_a_data["close"],
+                                                    y=df_a_data["spx"],
                                                     marker={
                                                         "color": "#dddddd",
                                                         "line": {
