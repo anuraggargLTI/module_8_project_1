@@ -46,5 +46,7 @@ They will then be shown the minimal risk portfolio, the maximum return portfolio
 
 The random portfolios are generated in such a way that each portfolio generated will have a higher ratio of return/risk than the previous ones so it will tend towards the optimal portfolio.
 
+## portfolio Data
+Our app has a database of over 100+ stocks and based on the stocks selected by the user historical data can be populated for analysis and dashboard display
 
 
