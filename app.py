@@ -6,14 +6,17 @@ import plotly.graph_objs as go
 from utils import Header, make_dash_table
 import pandas as pd
 from pathlib import Path
-import portfolio_data as pfd
 import efficient_frontier as ef
 import numpy as np
+import portfolio_data as pfd
 
-stocks = ['AAPL', 'MSFT']
+
+symbol_list ='"MSFT","INFY"'
+stocks = ['AAPL','MSFT','AMD','NVDA']
 weights = weights = np.array([1]*len(stocks))/len(stocks)
-df_tech = pd.read_csv(Path("Resources/AAPL_data.csv"))
+df_tech = pd.read_csv(Path("Resources/AAL_data.csv"))
 df_a_data = ef.portfolio_performance_compare_calculator(stocks,weights)
+df_portfolio_overview = pd.read_csv(Path("Resources/Technology Sector List.csv"))
 
 app = dash.Dash(__name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}])
 
@@ -54,7 +57,7 @@ app.layout = html.Div([
                     html.Div(
                         [
                             dcc.Store('memory-intervals', storage_type='session'),
-                            dcc.Dropdown(['INFY', 'OCLA', "AAPL", 'GOOG'], id='demo-dropdown', placeholder= "Please Choose One", multi=True, persistence= True, persistence_type="session")
+                            dcc.Dropdown(['AAPL', 'MSFT', "AMD", 'NVDA'], id='demo-dropdown', placeholder= "Please Choose One", multi=True, persistence= True, persistence_type="session")
                             ]),
                     # Row 4
                     html.Div(
@@ -64,7 +67,7 @@ app.layout = html.Div([
                                     html.H6(
                                         ["Portfolio Overview"], className="subtitle padded"
                                     ),
-                                    html.Table(make_dash_table(df_tech)),
+                                    html.Table(make_dash_table(df_portfolio_overview)),
                                 ],
                                 className="six columns",
                             ),
@@ -165,19 +168,33 @@ app.layout = html.Div([
                                         figure={
                                             "data": [
                                                 go.Scatter(
-                                                    x=pfd.get_historical_data("INFY").index,
-                                                    y=pfd.get_historical_data("INFY")["close"],
+                                                    x=pfd.get_historical_data("NVDA").index,
+                                                    y=pfd.get_historical_data("NVDA")["close"],
                                                     line={"color": " #0849A3"},
                                                     mode="lines",
-                                                    name="INFY",
+                                                    name="NVDA",
                                                 ),
                                                 go.Scatter(
-                                                    x=pfd.get_historical_data("ORCL").index,
-                                                    y=pfd.get_historical_data("ORCL")["close"],
-                                                    line={"color": " #0849D9"},
+                                                    x=pfd.get_historical_data("AMD").index,
+                                                    y=pfd.get_historical_data("AMD")["close"],
+                                                    line={"color": " #FFA500"},
                                                     mode="lines",
-                                                    name="ORCL",
-                                                )
+                                                    name="AMD",
+                                                ),
+                                                go.Scatter(
+                                                    x=pfd.get_historical_data("AAPL").index,
+                                                    y=pfd.get_historical_data("AAPL")["close"],
+                                                    line={"color": " #00FF00"},
+                                                    mode="lines",
+                                                    name="AAPL",
+                                                ),
+                                                go.Scatter(
+                                                    x=pfd.get_historical_data("MSFT").index,
+                                                    y=pfd.get_historical_data("MSFT")["close"],
+                                                    line={"color": " #FF0000"},
+                                                    mode="lines",
+                                                    name="MSFT",
+                                                ),
                                             ],
                                             "layout": go.Layout(
                                                 autosize=True,
@@ -226,14 +243,14 @@ app.layout = html.Div([
                                         "Portfolio Prediction",
                                         className="subtitle padded",
                                     ),
-                                    html.Img(src= app.get_asset_url("favicon.ico"), height = 100, width = 150),
+                                    html.Img(src= app.get_asset_url("gianforte_MC_plot.png"), height = 220, width = 370)
                                 ],
                                 className="six columns",
                             ),
                             html.Div(
                                 [
                                     html.H6(
-                                        ["Risk Analysis"], className="subtitle padded"
+                                        ["Last Transactions"], className="subtitle padded"
                                     ),
                                     html.Table(make_dash_table(df_tech)),
                                 ],
