@@ -26,7 +26,7 @@ def insert_into_symbol_details():
     #symbol_details_df.to_sql("SYMBOL_DETAILS",engine,if_exists="replace")
     filename_list = os.listdir("./Resources/")
     for file in filename_list:
-        if(file!='Technology Sector List.csv' and file!='MutualFunds.csv' and file!='ETFs.csv' and file!='.gitkeep'):
+        if(file!='Technology Sector List.csv' and file!='MutualFunds.csv' and file!='ETFs.csv' and file!='.gitkeep' and file!='.DS_Store'):
             symbol_details_df = pd.read_csv(Path(f"./Resources/{file}"))
             if '_data' in file:
                 
