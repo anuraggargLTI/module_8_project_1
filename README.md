@@ -2,6 +2,8 @@
 # Dynamic Stock Portfolio Analyzer Using Dash
 
 ## How to Use
+Pull the repository from git onto a folder on your machine. 
+ 
 Intall the required dependencies and run app.py from your device's command line. This allows you to view the dash in a hardcoded format.
 
 In the future, you will be able to run main_cli_application.py from your command line and give a list of stocks in the format 
