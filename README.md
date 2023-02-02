@@ -6,7 +6,7 @@
 
 ## Politician stock portfolios:
 
-### For this portion of the project we wanted to compare user portfolios with those of some of the wealthiest politicians. Using information from opensecrets.org, we selected Mark Warner (Senator VA), Greg Gianforte (Gov Montana), and Nancy Pelosi (Congresswoman CA). Considering the extent of these individuals stock portfolios, we elected to use the investment capital each of these individuals had invested in their top 5-6 publicly traded stocks in 2018 (most recent available portfolio data). Alpaca API used to create concatonated dataframes with closing prices. Monte Carlo simulations created and plotted for each of the politicians and summary statistics generated.
+### For this portion of the project we wanted to compare user portfolios with those of some of the wealthiest politicians. Using information from opensecrets.org, we selected Mark Warner (Senator VA), Greg Gianforte (Gov Montana), and Nancy Pelosi (Congresswoman CA). Considering the extent of these individuals stock portfolios, we elected to use the investment capital each of these individuals had invested in their top 5-6 publicly traded stocks in 2018 (most recent available portfolio data). Alpaca API used to create concatonated dataframes with closing prices. Monte Carlo simulations created and plotted for each of the politicians and summary statistics generated. These simulations are available in the reposityor under politician_stocks.ipynb.
 
 ### With an investment of $116,000,000.00 there is a 95% chance that over the next 10 years the Warner sample portfolio (warner_tickers= ['SPY', 'AKREX', 'TROW', 'COHOX', 'VTI']) will end with a range between $100,001,587.36 and $429,029,712.85
 
